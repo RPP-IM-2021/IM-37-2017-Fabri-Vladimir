@@ -2,6 +2,10 @@ package rpp2021.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Racun.findAll", query="SELECT r FROM Racun r")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Racun implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +33,8 @@ public class Racun implements Serializable {
 
 	//bi-directional many-to-one association to StavkaRacuna
 	@OneToMany(mappedBy="racun")
-	private List<StavkaRacuna> stavkaRacunas;
+	@JsonIgnore
+	private List<StavkaRacuna> stavkaRacuna;
 
 	public Racun() {
 	}
@@ -57,23 +63,23 @@ public class Racun implements Serializable {
 		this.nacinPlacanja = nacinPlacanja;
 	}
 
-	public List<StavkaRacuna> getStavkaRacunas() {
-		return this.stavkaRacunas;
+	public List<StavkaRacuna> getStavkaRacuna() {
+		return this.stavkaRacuna;
 	}
 
-	public void setStavkaRacunas(List<StavkaRacuna> stavkaRacunas) {
-		this.stavkaRacunas = stavkaRacunas;
+	public void setStavkaRacuna(List<StavkaRacuna> stavkaRacuna) {
+		this.stavkaRacuna = stavkaRacuna;
 	}
 
 	public StavkaRacuna addStavkaRacuna(StavkaRacuna stavkaRacuna) {
-		getStavkaRacunas().add(stavkaRacuna);
+		getStavkaRacuna().add(stavkaRacuna);
 		stavkaRacuna.setRacun(this);
 
 		return stavkaRacuna;
 	}
 
 	public StavkaRacuna removeStavkaRacuna(StavkaRacuna stavkaRacuna) {
-		getStavkaRacunas().remove(stavkaRacuna);
+		getStavkaRacuna().remove(stavkaRacuna);
 		stavkaRacuna.setRacun(null);
 
 		return stavkaRacuna;

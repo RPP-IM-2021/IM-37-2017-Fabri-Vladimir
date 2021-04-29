@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name="stavka_racuna")
 @NamedQuery(name="StavkaRacuna.findAll", query="SELECT s FROM StavkaRacuna s")
+@JsonIgnoreProperties({"hybernateLazyInitializer" , "handler"})
 public class StavkaRacuna implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +37,6 @@ public class StavkaRacuna implements Serializable {
 
 	//bi-directional many-to-one association to Proizvod
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name="proizvod")
 	private Proizvod proizvod;
 

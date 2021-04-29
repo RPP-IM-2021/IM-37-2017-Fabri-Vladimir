@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Proizvodjac.findAll", query="SELECT p FROM Proizvodjac p")
+@JsonIgnoreProperties({"hybernateLazyInitializer" , "handler"})
 public class Proizvodjac implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -68,23 +70,23 @@ public class Proizvodjac implements Serializable {
 		this.naziv = naziv;
 	}
 
-	public List<Proizvod> getProizvods() {
+	public List<Proizvod> getProizvod() {
 		return this.proizvod;
 	}
 
-	public void setProizvods(List<Proizvod> proizvod) {
+	public void setProizvod(List<Proizvod> proizvod) {
 		this.proizvod = proizvod;
 	}
 
 	public Proizvod addProizvod(Proizvod proizvod) {
-		getProizvods().add(proizvod);
+		getProizvod().add(proizvod);
 		proizvod.setProizvodjac(this);
 
 		return proizvod;
 	}
 
 	public Proizvod removeProizvod(Proizvod proizvod) {
-		getProizvods().remove(proizvod);
+		getProizvod().remove(proizvod);
 		proizvod.setProizvodjac(null);
 
 		return proizvod;

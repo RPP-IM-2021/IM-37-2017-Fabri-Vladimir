@@ -28,7 +28,6 @@ public class Proizvod implements Serializable {
 
 	//bi-directional many-to-one association to Proizvodjac
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name="proizvodjac")
 	private Proizvodjac proizvodjac;
 	
@@ -36,7 +35,7 @@ public class Proizvod implements Serializable {
 	//bi-directional many-to-one association to StavkaRacuna
 	@OneToMany(mappedBy="proizvod")
 	@JsonIgnore
-	private List<StavkaRacuna> stavkaRacunas;
+	private List<StavkaRacuna> stavkaRacuna;
 
 	public Proizvod() {
 	}
@@ -65,23 +64,23 @@ public class Proizvod implements Serializable {
 		this.proizvodjac = proizvodjac;
 	}
 
-	public List<StavkaRacuna> getStavkaRacunas() {
-		return this.stavkaRacunas;
+	public List<StavkaRacuna> getStavkaRacuna() {
+		return this.stavkaRacuna;
 	}
 
-	public void setStavkaRacunas(List<StavkaRacuna> stavkaRacunas) {
-		this.stavkaRacunas = stavkaRacunas;
+	public void setStavkaRacunas(List<StavkaRacuna> stavkaRacuna) {
+		this.stavkaRacuna = stavkaRacuna;
 	}
 
 	public StavkaRacuna addStavkaRacuna(StavkaRacuna stavkaRacuna) {
-		getStavkaRacunas().add(stavkaRacuna);
+		getStavkaRacuna().add(stavkaRacuna);
 		stavkaRacuna.setProizvod(this);
 
 		return stavkaRacuna;
 	}
 
 	public StavkaRacuna removeStavkaRacuna(StavkaRacuna stavkaRacuna) {
-		getStavkaRacunas().remove(stavkaRacuna);
+		getStavkaRacuna().remove(stavkaRacuna);
 		stavkaRacuna.setProizvod(null);
 
 		return stavkaRacuna;
